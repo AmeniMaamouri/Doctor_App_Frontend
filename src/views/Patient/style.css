@@ -1,0 +1,18 @@
+.modalPatient label{
+    font-weight: 500;
+}
+.modalPatientFooter .btn-secondary {
+    background-color: red;
+    border: none;
+    margin-right: 10px;
+  
+}
+
+.modalPatientFooter .btn-primary {
+    background-color: green;
+    border: none;
+
+}
+.modalPatientFooter {
+    text-align: right;
+}
