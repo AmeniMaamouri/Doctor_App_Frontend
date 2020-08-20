@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './style.css'
 import axios from 'axios'
 
+
+
 const AddPatientModel = () => {
 
     const [patient, setPatient] = useState('');
@@ -20,6 +22,10 @@ const AddPatientModel = () => {
        }).catch(err => {
            console.log(err)
        })
+
+      setTimeout(()=> {
+        window.location.reload();
+      },1000)
     }
 
     return (
@@ -34,7 +40,8 @@ const AddPatientModel = () => {
                         </button>
                     </div>
                     <div className="modal-body">
-                    {message && <p style={{textAlign:'center', fontWeight:'bold'}}> {message} </p>}
+                    {message == 'Le Patient a été ajouté avec succès' && <p style={{textAlign:'center', fontWeight:'bold', color:'green'}}> {message} </p>}
+                    {message == 'Patient existe déja' && <p style={{textAlign:'center', fontWeight:'bold', color:'red'}}> {message} </p>}
                         <form onSubmit={handleSumbit} className="modalPatient" action='/patients' method="POST">
                             <div className="form-group">
                                 <label htmlFor="formGroupExampleInput">Nom et prénom</label>

@@ -6,6 +6,7 @@ import CIcon from '@coreui/icons-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faEdit } from '@fortawesome/free-solid-svg-icons'
 import AddPatientModel from './AddPatientModel'
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import axios from 'axios'
 
 const Patient = () => {
@@ -21,12 +22,14 @@ const rowStyle = { backgroundColor: 'white', border: '2px solid grey' };
         {dataField: 'birth', text: 'Date de naissance', headerStyle},
         {dataField: 'sexe', text: 'Sexe', headerStyle},
         {dataField: 'adress', text: 'Adresse',headerStyle },
+       
     ]
 
     useEffect(() => {
         axios.get('http://localhost:4000/patients').then(res => {
             setPatients(res.data)
             setClientSpecify(res.data)
+            
         }).catch(err => {
             console.log(err)
         })
@@ -38,11 +41,9 @@ const rowStyle = { backgroundColor: 'white', border: '2px solid grey' };
         return (!patient.name.toLowerCase().search(e.target.value.toLowerCase()))
        })
        setClientSpecify(client)
-    
-     
-       
-    }
 
+    }
+   
 
     return ( 
         <div>
@@ -62,6 +63,16 @@ const rowStyle = { backgroundColor: 'white', border: '2px solid grey' };
             data={clientSpecify}
             columns={columns}
             pagination={paginationFactory()}
+            cellEdit={ cellEditFactory({ mode: 'click' , afterSaveCell: (oldValue, newValue, row, column) => { 
+                axios.put('http://localhost:4000/patients', row).then(res => {
+                    console.log(res) 
+                }).catch(err => {
+                    console.log(err)
+                })
+             }}) }
+          
+            
+           
             />
         </div>
      );
