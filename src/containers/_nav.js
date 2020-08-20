@@ -14,6 +14,12 @@ export default [
     icon: 'cil-speedometer',
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Fiches Patients',
+    to: '/fiches-patients',
+    icon: 'cil-speedometer',
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Base',
     route: '/base',

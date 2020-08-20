@@ -17,15 +17,18 @@ const AddPatientModel = () => {
     const handleSumbit = (e) => {
         e.preventDefault();
        axios.post('http://localhost:4000/patients', patient).then(res => {
-           console.log(res)
+           
            setMessage(res.data.message)
+           if(res.data.message == 'Le Patient a été ajouté avec succès' ){
+            setTimeout(()=> {
+                window.location.reload();
+              },1000)
+         }
        }).catch(err => {
            console.log(err)
        })
-
-      setTimeout(()=> {
-        window.location.reload();
-      },1000)
+       
+   
     }
 
     return (

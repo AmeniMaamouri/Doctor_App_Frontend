@@ -9,7 +9,7 @@ const Cards = React.lazy(() => import('./views/base/cards/Cards'));
 
 const BasicForms = React.lazy(() => import('./views/base/forms/BasicForms'));
 
-
+const FichesPatients = React.lazy(() => import('./views/fichesPatients/FichesPatients'));
 
 
 const Paginations = React.lazy(() => import('./views/base/paginations/Pagnations'));
@@ -39,7 +39,7 @@ const routes = [
   { path: '/base', name: 'Base', component: Cards, exact: true },
   
   { path: '/base/cards', name: 'Cards', component: Cards },
- 
+  { path: '/fiches-patients', name: 'Fiches Patients', component: FichesPatients },
 
   { path: '/base/forms', name: 'Forms', component: BasicForms },
   { path: '/base/paginations', name: 'Paginations', component: Paginations },

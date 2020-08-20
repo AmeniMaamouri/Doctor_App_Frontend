@@ -1,0 +1,48 @@
+.fichesPatients img {
+    width: 40%;
+    text-align: center !important;
+}
+
+.fichesPatients .row {
+    
+    text-align: center !important;
+}
+
+.fichesPatients .patientName {
+    font-weight: bold;
+    margin-top: -8px;
+    
+    
+}
+
+.fichesPatients .dateSheet {
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: -16px;
+    
+}
+
+.fichesPatients .sheet {
+    margin-top: 20px;
+}
+
+
+.modalPatient label{
+    font-weight: 500;
+}
+.modalPatientFooter .btn-secondary {
+    background-color: red;
+    border: none;
+    margin-right: 10px;
+  
+}
+
+.modalPatientFooter .btn-primary {
+    background-color: green;
+    border: none;
+
+}
+.modalPatientFooter {
+    text-align: right;
+}
+
