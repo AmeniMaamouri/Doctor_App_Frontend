@@ -1,8 +1,8 @@
 export default [
   {
     _tag: 'CSidebarNavItem',
-    name: 'Dashboard',
-    to: '/dashboard',
+    name: 'Acceuil',
+    to: '/home',
     icon: 'cil-speedometer',
  
   },
@@ -13,6 +13,7 @@ export default [
     to: '/Patients',
     icon: 'cil-speedometer',
   },
+ 
   {
     _tag: 'CSidebarNavItem',
     name: 'Fiches Patients',

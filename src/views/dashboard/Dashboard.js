@@ -209,7 +209,7 @@ const Dashboard = () => {
                   <tr>
                     <td className="text-center">
                       <div className="c-avatar">
-                        <img src={'avatars/6.jpg'} className="c-avatar-img" alt="admin@bootstrapmaster.com" />
+                        <img src={require('../../images/avatar.jpg')} className="c-avatar-img" alt="admin@bootstrapmaster.com" />
                         <span className="c-avatar-status bg-danger"></span>
                       </div>
                     </td>

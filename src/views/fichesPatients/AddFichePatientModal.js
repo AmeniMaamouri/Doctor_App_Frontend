@@ -86,7 +86,7 @@ const AddFichePatientModal = ({ patients }) => {
                                 <textarea  required className="form-control" id="exampleFormControlTextarea1" onChange={handleChange} name='observation' rows={7} />
                             </div>
 
-                            <TextField
+                            {/* <TextField
                                 onChange={handleChange}
                                 required
                                 style={{ marginBottom: '40px' }}
@@ -100,7 +100,7 @@ const AddFichePatientModal = ({ patients }) => {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
-                            />
+                            /> */}
 
 
 

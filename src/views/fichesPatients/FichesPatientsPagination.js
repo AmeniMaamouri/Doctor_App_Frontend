@@ -20,7 +20,7 @@ const FichesPatientPagination = ({ postsPerPage, totalPosts, paginate }) => {
                         <a  onClick={() => {
                             paginate(number)
                             setiClicked(i)
-                        }} href='!#/fiches-patients' className="page-link "> {number} </a>
+                        }} href='#/fiches-patients' className="page-link "> {number} </a>
 
                     </li>
                 ))}
