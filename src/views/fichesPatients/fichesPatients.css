@@ -57,10 +57,24 @@
 .fiche .information .place{
     text-align: right;
 }
+.fiche .information .personnel{
+    text-align: left !important;
+}
 .fiche .information {
     margin-top: 30px;
     margin-bottom: 20px;
 }
 .fiche .information strong{
     font-size: 17px;
+}
+.faPrint:hover{
+    cursor: pointer;
+
+}
+.fiche{
+    margin-top: -30px;
+}
+.faPrint{
+    font-size: 25px;
+
 }

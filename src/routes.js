@@ -10,7 +10,7 @@ const Cards = React.lazy(() => import('./views/base/cards/Cards'));
 const BasicForms = React.lazy(() => import('./views/base/forms/BasicForms'));
 
 const FichesPatients = React.lazy(() => import('./views/fichesPatients/FichesPatients'));
-const FichePatient = React.lazy(() => import('./views/fichesPatients/FichePatient'));
+
 
 const Paginations = React.lazy(() => import('./views/base/paginations/Pagnations'));
 
@@ -30,6 +30,7 @@ const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
 const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
 const Patient = React.lazy(() => import('./views/Patient/Patient'));
+const PrintFiche = React.lazy(() => import('./views/fichesPatients/PrintFiche'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -40,7 +41,7 @@ const routes = [
   
   { path: '/base/cards', name: 'Cards', component: Cards },
   { path: '/fiches-patients', name: 'Fiches Patients', component: FichesPatients },
-  { path: '/fiche-patient/:id', name: 'Fiche Patient', component: FichePatient },
+  { path: '/fiche-patient/:id', name: 'Fiche Patient', component: PrintFiche },
 
   { path: '/base/forms', name: 'Forms', component: BasicForms },
   { path: '/base/paginations', name: 'Paginations', component: Paginations },
