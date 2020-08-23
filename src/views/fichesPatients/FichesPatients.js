@@ -15,12 +15,15 @@ const FichesPatients = () => {
     const [fichePatients, setFichePatients] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(12)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axios.get('http://localhost:4000/fiches-patients').then(res => {
 
             setPatients(res.data.patients)
-            setFichePatients(res.data.fichePatient) 
+            setFichePatients(res.data.fichePatient)
+            setPatientWithSheetFilter(res.data.fichePatient)
+            setLoading(false)
 
         }).catch(err => {
             console.log(err)
@@ -28,56 +31,64 @@ const FichesPatients = () => {
     }, []);
 
     const handleChange = (e) => {
-        let client = patients.filter(patient => {
-            return (!patient.name.toLowerCase().search(e.target.value.toLowerCase()))
-           })
-           setPatientWithSheetFilter(client)
+
+        let client = fichePatients.filter(sheet => {
+            const patientt = patients.filter(pat => {
+                return pat.fichePatient === sheet._id
+            })
+            return (!patientt[0].name.toLowerCase().search(e.target.value.toLowerCase()))
+        })
+
+        setPatientWithSheetFilter(client)
+
     }
 
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPosts = fichePatients.slice(indexOfFirstPost, indexOfLastPost)
-   
+    const currentPosts = patientWithSheetFilter.slice(indexOfFirstPost, indexOfLastPost)
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     return (
-        <div className="fichesPatients">
+        <div>
+            {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> : <div className="fichesPatients">
 
-            <p style={{ textAlign: 'right', marginBottom: '-30px', fontSize: '25px', color: 'green' }}>
-                <FontAwesomeIcon type="button" data-toggle="modal" data-target="#exampleModalCenter" style={{ marginRight: '10px' }} icon={faPlus} />
-            </p>
+                <p style={{ textAlign: 'right', marginBottom: '-30px', fontSize: '25px', color: 'green' }}>
+                    <FontAwesomeIcon type="button" data-toggle="modal" data-target="#exampleModalCenter" style={{ marginRight: '10px' }} icon={faPlus} />
+                </p>
 
-            <AddFichePatientModal patients={patients} />
-            <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Fiches Des Patients </h1>
+                <AddFichePatientModal patients={patients} />
+                <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Fiches Des Patients </h1>
 
-            <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-                <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
-            </form>
+                <form style={{ textAlign: 'right', marginBottom: '10px' }}>
+                    <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                </form>
 
-            <div className='row'>
+                <div className='row'>
 
-                {currentPosts && currentPosts.map(sheet => {
-                    
-                    const patient = patients.filter(pat => {
-                        return pat.fichePatient === sheet._id
-                    })
-                    return (
-                        <div  key={sheet._id} className="col-md-4 col-sm-6 col-lg-3 sheet">
-                            <a href={`/fiche-patient/`+ patient[0]._id}>
-                            <img className='imgSheet' src={require('../../images/sheet.png')} />
-                            <p className="patientName">{patient[0].name}</p>
-                            <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
-                            </a>
-                            
-                        </div>
-                    )
-                })}
+                    {currentPosts && currentPosts.map(sheet => {
 
-            </div>
-            <div  className="col-12">
-            <FichesPatientPagination postsPerPage={postsPerPage} totalPosts={patientWithSheetFilter.length} paginate={paginate}/>
-            </div>
-            
+                        const patient = patients.filter(pat => {
+                            return pat.fichePatient === sheet._id
+                        })
+                        return (
+                            <div key={sheet._id} className="col-md-4 col-sm-6 col-lg-3 sheet">
+                                <a href={`/fiche-patient/` + patient[0]._id}>
+                                    <img className='imgSheet' src={require('../../images/sheet.png')} />
+                                    <p className="patientName">{patient[0].name}</p>
+                                    <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
+                                </a>
+
+                            </div>
+                        )
+                    })}
+
+                </div>
+                <div className="col-12">
+                    <FichesPatientPagination postsPerPage={postsPerPage} totalPosts={patientWithSheetFilter.length} paginate={paginate} />
+                </div>
+
+            </div>}
         </div>
     );
 }

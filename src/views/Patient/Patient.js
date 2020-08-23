@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import CIcon from '@coreui/icons-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import AddPatientModel from './AddPatientModel'
 import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
 import axios from 'axios'
@@ -15,6 +15,34 @@ const Patient = () => {
     const [loading, setLoading] = useState(true)
     const headerStyle = { backgroundColor: '#3C4B64', color: 'white', fontSize: '15px', border: '2px solid grey' }
     const rowStyle = { backgroundColor: 'white', border: '2px solid grey' };
+
+
+    function rankFormatter(cell, row, rowIndex, formatExtraData) { 
+        if(row.fichePatient == undefined) {
+
+            return ( 
+                < div 
+                    style={{ textAlign: "center",
+                       
+                      fontWeight: "bold" }}>
+     
+             <p>-</p>
+           </div> 
+      );
+
+        }else {
+            return ( 
+                < div 
+                    style={{ textAlign: "center",
+                       fontWeight: "bold" }}>
+     
+             <a href={`fiche-patient/`+ row._id}><FontAwesomeIcon style={{fontSize: '20px', color: 'green'}}  icon={faEye} /></a>
+           </div> 
+      );
+        }
+     } 
+
+
     const columns = [
 
         { dataField: 'name', text: 'Nom et prénom', headerStyle },
@@ -38,6 +66,7 @@ const Patient = () => {
         },
         { dataField: 'sexe', text: 'Sexe', headerStyle },
         { dataField: 'adress', text: 'Adresse', headerStyle },
+        { dataField: '_id', text: 'Fiche Patient', headerStyle, cellEdit: false, formatter: rankFormatter, },
 
     ]
 
@@ -45,6 +74,7 @@ const Patient = () => {
         axios.get('http://localhost:4000/patients').then(res => {
             setPatients(res.data)
             setClientSpecify(res.data)
+            console.log(res.data)
             setLoading(false)
 
         }).catch(err => {
@@ -66,7 +96,7 @@ const Patient = () => {
         <div>
             {loading === true ? <p style={{textAlign: 'center' , fontSize: '20px', marginTop: '5%', fontWeight: 'bold'}} >Loading...</p> : <div>
 
-                <p style={{ textAlign: 'right', marginBottom: '-20px', fontSize: '23px', color: 'green' }}>
+                <p style={{ textAlign: 'right', marginBottom: '-30px', fontSize: '23px', color: 'green' }}>
                     <FontAwesomeIcon type="button" data-toggle="modal" data-target="#exampleModalCenter" style={{ marginRight: '10px' }} icon={faUserPlus} />
                 </p>
 
@@ -77,6 +107,7 @@ const Patient = () => {
                     <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                 </form>
                 <BootstrapTable rowStyle={rowStyle}
+                    noDataIndication="Le tableau est vide"
                     keyField='_id'
                     data={clientSpecify}
                     columns={columns}
