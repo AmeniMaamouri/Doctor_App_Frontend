@@ -1,5 +1,10 @@
-.fichesPatients img {
+.fichesPatients .imgSheet {
     width: 40%;
+    text-align: center !important;
+}
+
+.fichesPatients .imgOrd {
+    width: 28%;
     text-align: center !important;
 }
 
@@ -13,6 +18,11 @@
     margin-top: -8px;
     
     
+}
+
+.fichesPatients  .patientNameOrd{
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .fichesPatients .dateSheet {
@@ -49,6 +59,11 @@
 .fichesPatients .sheet a{
     text-decoration: none;
     color: #3C4B64;
+}
+.fiche .tete {
+    margin-top: 60px;
+    color: black;
+    font-size: 19px
 }
 
 .fichesPatients .sheet:hover{

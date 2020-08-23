@@ -21,6 +21,12 @@ export default [
     icon: 'cil-speedometer',
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Ordonnances Médicales',
+    to: '/ordonnances',
+    icon: 'cil-speedometer',
+  },
+  {
     _tag: 'CSidebarNavDropdown',
     name: 'Base',
     route: '/base',

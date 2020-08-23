@@ -25,7 +25,7 @@ const FichesPatients = () => {
             })
             setPatientWithSheet(patientWithSheet)
             setPatientWithSheetFilter(patientWithSheet)
-        
+          
 
         }).catch(err => {
             console.log(err)
@@ -42,7 +42,7 @@ const FichesPatients = () => {
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
     const currentPosts = patientWithSheetFilter.slice(indexOfFirstPost, indexOfLastPost)
-
+   
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     return (
@@ -65,9 +65,9 @@ const FichesPatients = () => {
                     return (
                         <div  key={sheet._id} className="col-md-4 col-sm-6 col-lg-3 sheet">
                             <a href={`/fiche-patient/`+ sheet._id} >
-                            <img src={require('../../images/sheet.png')} />
+                            <img className='imgSheet' src={require('../../images/sheet.png')} />
                             <p className="patientName">{sheet.name}</p>
-                            <p className="dateSheet">Créer le {moment(sheet.createdAt).subtract(10, 'days').calendar()}</p>
+                            <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
                             </a>
                             
                         </div>

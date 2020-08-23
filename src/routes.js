@@ -31,6 +31,8 @@ const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
 const Patient = React.lazy(() => import('./views/Patient/Patient'));
 const PrintFiche = React.lazy(() => import('./views/fichesPatients/PrintFiche'));
+const Ordonnances = React.lazy(() => import('./views/ordonnances/Ordonnances'));
+const PrintOrdonnance = React.lazy(() => import('./views/ordonnances/PrintOrdonnance'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -42,6 +44,8 @@ const routes = [
   { path: '/base/cards', name: 'Cards', component: Cards },
   { path: '/fiches-patients', name: 'Fiches Patients', component: FichesPatients },
   { path: '/fiche-patient/:id', name: 'Fiche Patient', component: PrintFiche },
+  { path: '/ordonnances', name: 'Ordonnances Médicales', component: Ordonnances },
+  { path: '/ordonnance/:id', name: 'Ordonnance Médicale', component: PrintOrdonnance },
 
   { path: '/base/forms', name: 'Forms', component: BasicForms },
   { path: '/base/paginations', name: 'Paginations', component: Paginations },
@@ -61,6 +65,7 @@ const routes = [
 
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User }
+
 ];
 
 export default routes;

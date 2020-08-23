@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './fichesPatients.css'
 import MaterialTable from 'material-table'
-import { TablePagination } from '@material-ui/core';
+
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -85,7 +85,7 @@ const FichePatient = () => {
                     <div className='row information justify-content-around'>
                         <div className="col-4  personnel">
                             <p><strong>Nom et prénom :</strong> {data.name}</p>
-                            <p><strong>Date de naissance : </strong> {moment(data.birth).subtract(10, 'days').calendar()}</p>
+                            <p><strong>Date de naissance : </strong> {moment(data.birth).format('L')}</p>
                             <p><strong>Sexe :</strong> {data.sexe}</p>
 
                         </div>
@@ -93,7 +93,7 @@ const FichePatient = () => {
                             <p><strong>Adresse : </strong> {data.adress}</p>
 
                             <p><strong>Téléphone :</strong> {data.phone}</p>
-                            <p><strong>Fiche créé le : </strong> {moment(data.createdAt).subtract(10, 'days').calendar()}</p>
+                            <p><strong>Fiche créé le : </strong> {moment(data.createdAt).format('L')}</p>
 
                         </div>
                     </div>
@@ -107,10 +107,11 @@ const FichePatient = () => {
                             data={arrayData}
                             options={{
                                 paging: false,
-                                search: false
+                                search: false,
+                                addRowPosition: 'first',
+                                
                             }}
-                            
-
+                            localization={{ body: { editRow: { deleteText: 'Voulez-vous vraiment supprimer?' } } }}
                             editable={{
                                 onRowAdd: newData =>
                                     new Promise((resolve, reject) => {
@@ -120,6 +121,7 @@ const FichePatient = () => {
                                             dateObservation: new Date()
 
                                         }
+                                        
                                         setTimeout(() => {
                                             setArrayData([newData, ...arrayData]);
                                             axios.post(`http://localhost:4000/fiche-patient/` + id, newData).then(res => {
@@ -129,7 +131,10 @@ const FichePatient = () => {
                                             })
                                             resolve();
                                         }, 1000)
+                                        
                                     }),
+                                    
+
                                 onRowUpdate: (newData, oldData) =>
                                     new Promise((resolve, reject) => {
                                         setTimeout(() => {
@@ -174,6 +179,7 @@ const FichePatient = () => {
                                         }, 1000)
                                     }),
                             }}
+                            
                         />
                     </div>
 
