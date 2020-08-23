@@ -10,22 +10,17 @@ import FichesPatientPagination from './FichesPatientsPagination'
 
 const FichesPatients = () => {
 
-    const [patientWithSheet, setPatientWithSheet] = useState('')
     const [patientWithSheetFilter, setPatientWithSheetFilter] = useState('')
     const [patients, setPatients] = useState('')
+    const [fichePatients, setFichePatients] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(12)
 
     useEffect(() => {
         axios.get('http://localhost:4000/fiches-patients').then(res => {
 
-            setPatients(res.data)
-            let patientWithSheet = res.data.filter(data => {
-                return data.fichePatient !== undefined
-            })
-            setPatientWithSheet(patientWithSheet)
-            setPatientWithSheetFilter(patientWithSheet)
-          
+            setPatients(res.data.patients)
+            setFichePatients(res.data.fichePatient) 
 
         }).catch(err => {
             console.log(err)
@@ -33,7 +28,7 @@ const FichesPatients = () => {
     }, []);
 
     const handleChange = (e) => {
-        let client = patientWithSheet.filter(patient => {
+        let client = patients.filter(patient => {
             return (!patient.name.toLowerCase().search(e.target.value.toLowerCase()))
            })
            setPatientWithSheetFilter(client)
@@ -41,7 +36,7 @@ const FichesPatients = () => {
 
     const indexOfLastPost = currentPage * postsPerPage
     const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPosts = patientWithSheetFilter.slice(indexOfFirstPost, indexOfLastPost)
+    const currentPosts = fichePatients.slice(indexOfFirstPost, indexOfLastPost)
    
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -62,11 +57,15 @@ const FichesPatients = () => {
             <div className='row'>
 
                 {currentPosts && currentPosts.map(sheet => {
+                    
+                    const patient = patients.filter(pat => {
+                        return pat.fichePatient === sheet._id
+                    })
                     return (
                         <div  key={sheet._id} className="col-md-4 col-sm-6 col-lg-3 sheet">
-                            <a href={`/fiche-patient/`+ sheet._id} >
+                            <a href={`/fiche-patient/`+ patient[0]._id}>
                             <img className='imgSheet' src={require('../../images/sheet.png')} />
-                            <p className="patientName">{sheet.name}</p>
+                            <p className="patientName">{patient[0].name}</p>
                             <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
                             </a>
                             

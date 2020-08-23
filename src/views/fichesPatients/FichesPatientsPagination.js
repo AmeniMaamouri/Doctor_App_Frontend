@@ -16,7 +16,7 @@ const FichesPatientPagination = ({ postsPerPage, totalPosts, paginate }) => {
             <ul className="pagination" style={{justifyContent: 'center'}} >
                
                 {pageNumbers.map((number,i) => (
-                    <li key={number} className={i == iClicked && "active page-item"} style={{justifyContent: 'center'}}>
+                    <li key={number} className={i == iClicked ? "active page-item" : "page-item"} style={{justifyContent: 'center'}}>
                         <a  onClick={() => {
                             paginate(number)
                             setiClicked(i)

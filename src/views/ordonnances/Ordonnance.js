@@ -6,7 +6,7 @@ import moment from 'moment'
 class Ordonnance extends Component {
 
     state = {
-        loading: false,
+        loading: true,
         ordonnance: {}
     }
 
@@ -15,7 +15,8 @@ class Ordonnance extends Component {
         axios.get(`http://localhost:4000/ordonnance/` + id).then(res => {
             console.log(res.data)
             this.setState({
-                ordonnance: res.data
+                ordonnance: res.data,
+                loading: false
             })
         }).catch(err => {
             console.log(err)
@@ -24,7 +25,9 @@ class Ordonnance extends Component {
 
 
     render() {
-        return <div style={{ marginTop: '60px', backgroundColor: 'white', borderRadius: '10px', marginBottom: '40px' }}>
+        return <div>
+                {this.state.loading === true? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }} >Loading...</p> : 
+            <div style={{ marginTop: '60px', backgroundColor: 'white', borderRadius: '10px', marginBottom: '40px' }}>
             {this.loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
                 <div className="fiche">
 
@@ -55,9 +58,10 @@ class Ordonnance extends Component {
                             </div>
                     </div>
                 </div>}
+        </div>}
+    
+
         </div>
-    }
-
 }
-
+}
 export default Ordonnance;
