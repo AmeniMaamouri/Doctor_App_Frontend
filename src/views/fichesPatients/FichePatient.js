@@ -22,6 +22,7 @@ import { forwardRef } from 'react';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import moment from 'moment'
+import jwt from 'jsonwebtoken'
 
 
 const tableIcons = {
@@ -57,7 +58,8 @@ const FichePatient = () => {
     const [ficheId, setFicheId] = useState()
     const [sheetNumber, setSheetNumber] = useState()
     const [loading, setLoading] = useState(true)
-    
+    const [tokenData, setTokenData] = useState('')
+
 
     useEffect(() => {
 
@@ -70,14 +72,23 @@ const FichePatient = () => {
         }).catch(err => {
             console.log(err)
         })
-    }, []);
+    }, [])
 
-
+    useEffect(() => {
+        var token = localStorage.getItem('token');
+        jwt.verify(token, '3023b0f5ec57', function (err, decoded) {
+            setTokenData(decoded)
+            if (err) { // Manage different errors here (Expired, untrusted...)
+                localStorage.clear();
+                window.location.reload();
+            }
+        })
+    }, [])
 
 
     return (
         <div>
-            {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
+            {tokenData.role === 'Secrétaire' ? <div>  {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
                 <div className="fiche">
                     <div style={{ textAlign: 'center' }}>
                         <h4>Fiche N°{sheetNumber}</h4>
@@ -109,83 +120,125 @@ const FichePatient = () => {
                                 paging: false,
                                 search: false,
                                 addRowPosition: 'first',
-                                
+
                             }}
                             localization={{ body: { editRow: { deleteText: 'Voulez-vous vraiment supprimer?' } } }}
-                            editable={{
-                                onRowAdd: newData =>
-                                    new Promise((resolve, reject) => {
-                                        newData = {
-                                            _id: data.fiche._id,
-                                            observation: newData.observation,
-                                            dateObservation: new Date()
+             
 
-                                        }
-                                        
-                                        setTimeout(() => {
-                                            setArrayData([newData, ...arrayData]);
-                                            axios.post(`http://localhost:4000/fiche-patient/` + id, newData).then(res => {
-                                                console.log(res)
-                                            }).catch(err => {
-                                                console.log(err)
-                                            })
-                                            resolve();
-                                        }, 1000)
-                                        
-                                    }),
-                                    
-
-                                onRowUpdate: (newData, oldData) =>
-                                    new Promise((resolve, reject) => {
-                                        setTimeout(() => {
-                                            const dataUpdate = [...arrayData];
-                                            const index = oldData.tableData.id;
-                                            dataUpdate[index] = newData;
-                                            setArrayData([...dataUpdate]);
-
-                                            let information = {
-                                                notes: dataUpdate,
-                                                _id: ficheId,
-                                            }
-
-                                            axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
-                                                console.log(res)
-                                            }).catch(err => {
-                                                console.log(err)
-                                            })
-                                            resolve();
-                                        }, 1000)
-                                    }),
-                                onRowDelete: oldData =>
-
-                                    new Promise((resolve, reject) => {
-
-                                        setTimeout(() => {
-
-                                            const dataDelete = [...arrayData];
-                                            const index = oldData.tableData.id;
-                                            dataDelete.splice(index, 1);
-                                            setArrayData([...dataDelete]);
-                                            let information = {
-                                                notes: dataDelete,
-                                                _id: ficheId,
-                                            }
-                                            axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
-                                                console.log(res)
-                                            }).catch(err => {
-                                                console.log(err)
-                                            })
-                                            resolve()
-                                        }, 1000)
-                                    }),
-                            }}
-                            
                         />
                     </div>
 
 
 
-                </div>}
+                </div>} </div> : <div>  {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
+                    <div style={{ marginTop: '20px' }} className="fiche">
+                        <div style={{ textAlign: 'center' }}>
+                            <h4>Fiche N°{sheetNumber}</h4>
+                        </div>
+                        <div className='row information justify-content-around'>
+                            <div className="col-4  personnel">
+                                <p><strong>Nom et prénom :</strong> {data.name}</p>
+                                <p><strong>Date de naissance : </strong> {moment(data.birth).format('L')}</p>
+                                <p><strong>Sexe :</strong> {data.sexe}</p>
+
+                            </div>
+                            <div className="col-4 place">
+                                <p><strong>Adresse : </strong> {data.adress}</p>
+
+                                <p><strong>Téléphone :</strong> {data.phone}</p>
+                                <p><strong>Fiche créé le : </strong> {moment(data.createdAt).format('L')}</p>
+
+                            </div>
+                        </div>
+
+                        <div style={{ marginBottom: '40px' }}>
+                            <MaterialTable
+
+                                icons={tableIcons}
+                                title="Les Notes"
+                                columns={columns}
+                                data={arrayData}
+                                options={{
+                                    paging: false,
+                                    search: false,
+                                    addRowPosition: 'first',
+
+                                }}
+                                localization={{ body: { editRow: { deleteText: 'Voulez-vous vraiment supprimer?' } } }}
+                                editable={{
+                                    onRowAdd: newData =>
+                                        new Promise((resolve, reject) => {
+                                            newData = {
+                                                _id: data.fiche._id,
+                                                observation: newData.observation,
+                                                dateObservation: new Date()
+
+                                            }
+
+                                            setTimeout(() => {
+                                                setArrayData([newData, ...arrayData]);
+                                                axios.post(`http://localhost:4000/fiche-patient/` + id, newData).then(res => {
+                                                    console.log(res)
+                                                }).catch(err => {
+                                                    console.log(err)
+                                                })
+                                                resolve();
+                                            }, 1000)
+
+                                        }),
+
+
+                                    onRowUpdate: (newData, oldData) =>
+                                        new Promise((resolve, reject) => {
+                                            setTimeout(() => {
+                                                const dataUpdate = [...arrayData];
+                                                const index = oldData.tableData.id;
+                                                dataUpdate[index] = newData;
+                                                setArrayData([...dataUpdate]);
+
+                                                let information = {
+                                                    notes: dataUpdate,
+                                                    _id: ficheId,
+                                                }
+
+                                                axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
+                                                    console.log(res)
+                                                }).catch(err => {
+                                                    console.log(err)
+                                                })
+                                                resolve();
+                                            }, 1000)
+                                        }),
+                                    onRowDelete: oldData =>
+
+                                        new Promise((resolve, reject) => {
+
+                                            setTimeout(() => {
+
+                                                const dataDelete = [...arrayData];
+                                                const index = oldData.tableData.id;
+                                                dataDelete.splice(index, 1);
+                                                setArrayData([...dataDelete]);
+                                                let information = {
+                                                    notes: dataDelete,
+                                                    _id: ficheId,
+                                                }
+                                                axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
+                                                    console.log(res)
+                                                }).catch(err => {
+                                                    console.log(err)
+                                                })
+                                                resolve()
+                                            }, 1000)
+                                        }),
+                                }}
+
+                            />
+                        </div>
+
+
+
+                    </div>} </div>}
         </div>
 
     );

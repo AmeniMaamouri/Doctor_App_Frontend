@@ -37,7 +37,7 @@
 }
 
 
-.modalPatient label{
+label{
     font-weight: 500;
 }
 .modalPatientFooter .btn-secondary {
@@ -46,6 +46,7 @@
     margin-right: 10px;
   
 }
+
 
 .modalPatientFooter .btn-primary {
     background-color: green;
@@ -92,4 +93,32 @@
 .faPrint{
     font-size: 25px;
 
+}
+
+.fc-event:hover {
+    background-color: red;
+    border-color: red;
+    cursor: pointer;
+}
+.fc-event{
+    font-weight: 500;
+}
+
+.annulerBtn {
+    background-color: green !important;
+    border: none !important;
+}
+
+.ouiBtn {
+    background-color: red !important;
+    border: none !important;
+}
+
+.annBtn{
+    background-color: red !important;
+    border: none !important;
+}
+.addBtnEvent{
+    background-color: green !important;
+    border: none !important;
 }

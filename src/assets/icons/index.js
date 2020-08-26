@@ -126,6 +126,9 @@ import {
   cilUserFollow,
   cilUserUnfollow,
   cilX,
+  cilMedicalCross,
+cilAvTimer,
+
   cilXCircle,
   cilWarning
 } from '@coreui/icons'
@@ -143,6 +146,8 @@ export const icons = Object.assign({}, {
   cilArrowTop,
   cilAsterisk,
   cilBan,
+cilAvTimer,
+ cilMedicalCross,
   cilBasket,
   cilBell,
   cilBold,

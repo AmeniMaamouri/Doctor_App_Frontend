@@ -7,6 +7,8 @@ import { faUserPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import AddPatientModel from './AddPatientModel'
 import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import { Redirect } from 'react-router-dom'
 
 const Patient = () => {
 
@@ -15,32 +17,36 @@ const Patient = () => {
     const [loading, setLoading] = useState(true)
     const headerStyle = { backgroundColor: '#3C4B64', color: 'white', fontSize: '15px', border: '2px solid grey' }
     const rowStyle = { backgroundColor: 'white', border: '2px solid grey' };
+    const [tokenData, setTokenData] = useState('')
 
+    function rankFormatter(cell, row, rowIndex, formatExtraData) {
+        if (row.fichePatient == undefined) {
 
-    function rankFormatter(cell, row, rowIndex, formatExtraData) { 
-        if(row.fichePatient == undefined) {
+            return (
+                < div
+                    style={{
+                        textAlign: "center",
 
-            return ( 
-                < div 
-                    style={{ textAlign: "center",
-                       
-                      fontWeight: "bold" }}>
-     
-             <p>-</p>
-           </div> 
-      );
+                        fontWeight: "bold"
+                    }}>
 
-        }else {
-            return ( 
-                < div 
-                    style={{ textAlign: "center",
-                       fontWeight: "bold" }}>
-     
-             <a href={`fiche-patient/`+ row._id}><FontAwesomeIcon style={{fontSize: '20px', color: 'green'}}  icon={faEye} /></a>
-           </div> 
-      );
+                    <p>-</p>
+                </div>
+            );
+
+        } else {
+            return (
+                < div
+                    style={{
+                        textAlign: "center",
+                        fontWeight: "bold"
+                    }}>
+
+                    <a href={`fiche-patient/` + row._id}><FontAwesomeIcon style={{ fontSize: '20px', color: 'green' }} icon={faEye} /></a>
+                </div>
+            );
         }
-     } 
+    }
 
 
     const columns = [
@@ -71,6 +77,17 @@ const Patient = () => {
     ]
 
     useEffect(() => {
+        var token = localStorage.getItem('token');
+        jwt.verify(token, '3023b0f5ec57', function (err, decoded) {
+            setTokenData(decoded)
+            if (err) { // Manage different errors here (Expired, untrusted...)
+                localStorage.clear();
+                window.location.reload();
+            }
+        })
+    }, [])
+
+    useEffect(() => {
         axios.get('http://localhost:4000/patients').then(res => {
             setPatients(res.data)
             setClientSpecify(res.data)
@@ -94,39 +111,60 @@ const Patient = () => {
 
     return (
         <div>
-            {loading === true ? <p style={{textAlign: 'center' , fontSize: '20px', marginTop: '5%', fontWeight: 'bold'}} >Loading...</p> : <div>
+            {localStorage.getItem('token') ?  <div>
+            {tokenData.role === 'Médecin' ? <div>
 
-                <p style={{ textAlign: 'right', marginBottom: '-30px', fontSize: '23px', color: 'green' }}>
-                    <FontAwesomeIcon type="button" data-toggle="modal" data-target="#exampleModalCenter" style={{ marginRight: '10px' }} icon={faUserPlus} />
-                </p>
-
-                <AddPatientModel />
 
                 <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}><CIcon style={{ fontSize: '25px', textAlign: 'center', marginTop: '-8px' }} name="cil-people" /> Les Patients </h1>
                 <form style={{ textAlign: 'right', marginBottom: '10px' }}>
                     <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                 </form>
-                <BootstrapTable rowStyle={rowStyle}
-                    noDataIndication="Le tableau est vide"
-                    keyField='_id'
-                    data={clientSpecify}
-                    columns={columns}
-                    pagination={paginationFactory()}
-                    cellEdit={cellEditFactory({
-                        mode: 'click', blurToSave: true, afterSaveCell: (oldValue, newValue, row, column) => {
-                            axios.put('http://localhost:4000/patients', row).then(res => {
-                                console.log(res)
-                            }).catch(err => {
-                                console.log(err)
-                            })
-                        }
-                    })}
+                {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '5%', fontWeight: 'bold' }} >Loading...</p> :
+                    <BootstrapTable rowStyle={rowStyle}
+                        noDataIndication="Le tableau est vide"
+                        keyField='_id'
+                        data={clientSpecify}
+                        columns={columns}
+                        pagination={paginationFactory()}
+        
+                    />}
+            </div> : <div>
+
+                    <p style={{ textAlign: 'right', marginBottom: '-30px', fontSize: '23px', color: 'green' }}>
+                        <FontAwesomeIcon type="button" data-toggle="modal" data-target="#exampleModalCenter" style={{ marginRight: '10px' }} icon={faUserPlus} />
+                    </p>
+
+                    <AddPatientModel />
+
+                    <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}><CIcon style={{ fontSize: '25px', textAlign: 'center', marginTop: '-8px' }} name="cil-people" /> Les Patients </h1>
+                    <form style={{ textAlign: 'right', marginBottom: '10px' }}>
+                        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                    </form>
+                    {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '5%', fontWeight: 'bold' }} >Loading...</p> :
+                        <BootstrapTable rowStyle={rowStyle}
+                            noDataIndication="Le tableau est vide"
+                            keyField='_id'
+                            data={clientSpecify}
+                            columns={columns}
+                            pagination={paginationFactory()}
+                            cellEdit={cellEditFactory({
+                                mode: 'click', blurToSave: true, afterSaveCell: (oldValue, newValue, row, column) => {
+                                    axios.put('http://localhost:4000/patients', row).then(res => {
+                                        console.log(res)
+                                    }).catch(err => {
+                                        console.log(err)
+                                    })
+                                }
+                            })}
 
 
 
-                />
-            </div>}
+                        />}
+                </div>}
+        </div> : <Redirect to="/login" />}
         </div>
+        
+       
     );
 }
 

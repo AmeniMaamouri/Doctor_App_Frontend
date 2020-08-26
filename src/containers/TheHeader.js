@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import jwt from 'jsonwebtoken'
 import {
   CHeader,
   CToggler,
@@ -18,11 +19,23 @@ import {
 const TheHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector(state => state.sidebarShow)
+  const [tokenData, setTokenData] = useState('')
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
     dispatch({type: 'set', sidebarShow: val})
   }
+
+  useEffect(()=> {
+    var token = localStorage.getItem('token');
+    jwt.verify(token, '3023b0f5ec57', function (err, decoded) {
+      setTokenData(decoded)
+      if (err) { // Manage different errors here (Expired, untrusted...)
+        localStorage.clear();
+        window.location.reload();
+      }
+    })
+  },[])
 
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
@@ -49,8 +62,9 @@ const TheHeader = () => {
       </CHeaderNav>
 
       <CHeaderNav className="px-3">
-    
+      
         <TheHeaderDropdownMssg/>
+        <p style={{paddingTop:'19px', fontWeight:'bold', marginLeft:'10px'}}>{tokenData.role}</p>
         <TheHeaderDropdown/>
       </CHeaderNav>
 

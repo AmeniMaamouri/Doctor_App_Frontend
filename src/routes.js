@@ -1,4 +1,5 @@
 import React from 'react';
+import Calender from './views/calender/Calender';
 
 
 const Tables = React.lazy(() => import('./views/base/tables/Tables'));
@@ -26,7 +27,6 @@ const Brands = React.lazy(() => import('./views/icons/brands/Brands'));
 
 const Modals = React.lazy(() => import('./views/notifications/modals/Modals'));
 
-
 const Users = React.lazy(() => import('./views/users/Users'));
 const User = React.lazy(() => import('./views/users/User'));
 const Patient = React.lazy(() => import('./views/Patient/Patient'));
@@ -46,7 +46,7 @@ const routes = [
   { path: '/fiche-patient/:id', name: 'Fiche Patient', component: PrintFiche },
   { path: '/ordonnances', name: 'Ordonnances Médicales', component: Ordonnances },
   { path: '/ordonnance/:id', name: 'Ordonnance Médicale', component: PrintOrdonnance },
-
+  { path: '/calender', name: 'Calendrier', component: Calender },
   { path: '/base/forms', name: 'Forms', component: BasicForms },
   { path: '/base/paginations', name: 'Paginations', component: Paginations },
   { path: '/base/tables', name: 'Tables', component: Tables },

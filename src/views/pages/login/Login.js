@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CButton,
@@ -15,8 +15,33 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import axios from 'axios'
+import { useHistory } from 'react-router';
 
 const Login = () => {
+
+  const [data, setData] = useState({})
+  const history = useHistory();
+  const [message, setMessage] = useState()
+
+  const handleChange = (e) => {
+    setData({...data, [e.target.name]: e.target.value})
+  }
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    axios.post('http://localhost:4000/login', data).then(res=> {
+      setMessage(res.data.message)
+
+      if(res.data.status === 200) {
+        localStorage.setItem('token', res.data.userToken)
+        history.push('/patients');
+      }
+      
+    }).catch(err => console.log(err))
+  }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -25,16 +50,17 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
+                  <CForm onSubmit={handleSubmit} action='/login' method="POST">
+                    <h1 style={{textAlign: 'center', marginBottom:'20px', marginTop:'-20px'}}>Login</h1>
+                   
+                   <p style={{ textAlign: 'center', fontWeight: 'bold', color: 'red' }}> {message && message}</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" />
+                      <CInput onChange={handleChange} type="text" placeholder="Username" name='userName' autoComplete="username" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -42,30 +68,19 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                      <CInput onChange={handleChange} type="password" name='password' placeholder="Password" autoComplete="current-password" />
                     </CInputGroup>
                     <CRow>
-                      <CCol xs="6">
-                        <CButton color="primary" className="px-4">Login</CButton>
+                      <CCol className="text-center" xs="12">
+                        <CButton style={{fontWeight: 'bold'}}  type="submit"  color="primary" className="px-4 col-12" >Login</CButton>
                       </CCol>
-                      <CCol xs="6" className="text-right">
-                        <CButton color="link" className="px-0">Forgot password?</CButton>
-                      </CCol>
+                     
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
+              <CCard className="" style={{ width: '44%', background: `url(${require('.././../../images/doctorFont.jpg')}) center center ` , backgroundSize:'cover'} }>
+               
               </CCard>
             </CCardGroup>
           </CCol>

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import {
   CBadge,
   CDropdown,
@@ -8,8 +10,29 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import jwt from 'jsonwebtoken'
 
 const TheHeaderDropdown = () => {
+  const history = useHistory()
+  const [tokenData, setTokenData] = useState('')
+
+  const handleClick = () => {
+
+    localStorage.clear('token')
+    history.push('/login')
+  }
+
+  useEffect(() => {
+    var token = localStorage.getItem('token');
+    jwt.verify(token, '3023b0f5ec57', function (err, decoded) {
+      setTokenData(decoded)
+      if (err) { // Manage different errors here (Expired, untrusted...)
+        localStorage.clear();
+        window.location.reload();
+      }
+    })
+  }, [])
+
   return (
     <CDropdown
       inNav
@@ -18,13 +41,22 @@ const TheHeaderDropdown = () => {
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
-          <CImg
-            src={require('../images/avatar.jpg')}
+
+          {tokenData.role === 'Secrétaire' ? <CImg
+            src={require('../images/secretaire.png')}
             className="c-avatar-img"
-            alt="admin@bootstrapmaster.com"
-          />
+            alt="user photo"
+            style={{ width: '50px' }}
+          /> : <CImg
+              src={require('../images/doctoravatar.png')}
+              className="c-avatar-img"
+              alt="user photo"
+              style={{ width: '38px' }}
+            />}
+
         </div>
       </CDropdownToggle>
+
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownItem
           header
@@ -32,30 +64,20 @@ const TheHeaderDropdown = () => {
           color="light"
           className="text-center"
         >
-      
+
           <strong>Settings</strong>
         </CDropdownItem>
         <CDropdownItem>
           <CIcon name="cil-user" className="mfe-2" />Profile
         </CDropdownItem>
         <CDropdownItem>
-          <CIcon name="cil-settings" className="mfe-2" /> 
+          <CIcon name="cil-settings" className="mfe-2" />
           Settings
         </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-credit-card" className="mfe-2" /> 
-          Payments
-          <CBadge color="secondary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-file" className="mfe-2" /> 
-          Projects
-          <CBadge color="primary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem>
-          <CIcon name="cil-lock-locked" className="mfe-2" /> 
-          Lock Account
+        <CDropdownItem onClick={handleClick}>
+          <CIcon name="cil-lock-locked" className="mfe-2" />
+          Se déconnecter
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
