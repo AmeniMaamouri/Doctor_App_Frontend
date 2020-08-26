@@ -122,3 +122,17 @@ label{
     background-color: green !important;
     border: none !important;
 }
+.msgDropDown{
+    text-decoration: none !important;
+    background-color: white !important;
+}
+.msgDropDown:hover{
+    text-decoration: none !important;
+    background-color: #F8F9FA !important;
+}
+.textMsg {
+    color: black !important;
+}
+.iconPatientSend:hover{
+    transform: scale(1.2);
+}

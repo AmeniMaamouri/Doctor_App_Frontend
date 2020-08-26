@@ -9,6 +9,7 @@ import moment from 'moment'
 import jwt from 'jsonwebtoken'
 import { Redirect } from 'react-router-dom'
 
+
 const Ordonnances = () => {
     const [patients, setPatients] = useState()
     const [ordonnance, setOrdonnance] = useState()
@@ -17,6 +18,7 @@ const Ordonnances = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(12)
     const [tokenData, setTokenData] = useState('')
+    
 
     useEffect(() => {
         axios.get('http://localhost:4000/ordonnances').then(res => {

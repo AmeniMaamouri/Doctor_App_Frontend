@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import jwt from 'jsonwebtoken'
+import axios from 'axios'
+import io from 'socket.io-client';
 import {
   CHeader,
   CToggler,
@@ -20,6 +22,10 @@ const TheHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector(state => state.sidebarShow)
   const [tokenData, setTokenData] = useState('')
+  const [notif, setNotif] = useState([])
+  const [itemsCount, setItemsCount] = useState(0)
+  let socket = socket = io('http://localhost:4000')
+
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
@@ -35,7 +41,35 @@ const TheHeader = () => {
         window.location.reload();
       }
     })
+
+    axios.get('http://localhost:4000/:notif').then(res => {
+      setNotif(res.data.data)
+      setItemsCount(res.data.count[0].notif)
+
+    }).catch(err => {
+      console.log(err)
+    })
+
   },[])
+
+
+  const handleClick = () => {
+    setItemsCount(0)
+    axios.put('http://localhost:4000/:notif',{notif:0}).then(res => console.log(res)).catch(err => console.log(err))
+  }
+
+
+  useEffect(() => {
+    
+    socket.on('newNotif', (data) => {
+
+      setNotif(data.notif)
+      setItemsCount(itemsCount => itemsCount + 1)
+      })
+
+  },[])
+
+
 
   const toggleSidebarMobile = () => {
     const val = [false, 'responsive'].includes(sidebarShow) ? true : 'responsive'
@@ -61,9 +95,9 @@ const TheHeader = () => {
       <CHeaderNav className="d-md-down-none mr-auto">
       </CHeaderNav>
 
-      <CHeaderNav className="px-3">
+      <CHeaderNav className="px-3 ">
       
-        <TheHeaderDropdownMssg/>
+        <TheHeaderDropdownMssg notif={notif} itemsCount={itemsCount} setItemsCount={setItemsCount} handleClick={handleClick}/>
         <p style={{paddingTop:'19px', fontWeight:'bold', marginLeft:'10px'}}>{tokenData.role}</p>
         <TheHeaderDropdown/>
       </CHeaderNav>
