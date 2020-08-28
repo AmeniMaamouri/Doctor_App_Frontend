@@ -104,7 +104,7 @@ const FichePatient = () => {
                             <p><strong>Adresse : </strong> {data.adress}</p>
 
                             <p><strong>Téléphone :</strong> {data.phone}</p>
-                            <p><strong>Fiche créé le : </strong> {moment(data.createdAt).format('L')}</p>
+                            <p><strong>Fiche créée le : </strong> {moment(data.createdAt).format('L')}</p>
 
                         </div>
                     </div>
@@ -146,7 +146,7 @@ const FichePatient = () => {
                                 <p><strong>Adresse : </strong> {data.adress}</p>
 
                                 <p><strong>Téléphone :</strong> {data.phone}</p>
-                                <p><strong>Fiche créé le : </strong> {moment(data.createdAt).format('L')}</p>
+                                <p><strong>Fiche créée le : </strong> {moment(data.createdAt).format('L')}</p>
 
                             </div>
                         </div>

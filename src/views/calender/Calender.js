@@ -154,7 +154,7 @@ const Calender = () => {
 
                 <Modal centered show={showM1} onHide={handleCloseM1} animation={false}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Ajouter un rendez-vous</Modal.Title>
+                        <Modal.Title>Ajouter Rendez-vous</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {message == 'Rendez-Vous a été ajouté avec succès' && <p style={{ textAlign: 'center', fontWeight: 'bold', color: 'green' }}> {message} </p>}
@@ -168,7 +168,7 @@ const Calender = () => {
                                     Annuler
                     </Button>
                                 <Button className='addBtnEvent' type="submit" variant="primary" >
-                                    Ajouter évenement
+                                    Ajouter rendez-vous
                     </Button>
                             </Modal.Footer>
                         </form>
@@ -180,7 +180,7 @@ const Calender = () => {
 
                 <Modal centered show={showM2} onHide={handleCloseM2} animation={false}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Supprimer un rendez-vous</Modal.Title>
+                        <Modal.Title>Supprimer Rendez-vous</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <p style={{ fontSize: '18px', fontWeight: '500' }}>Voulez-vous vraiment supprimer le rendez-vous de <span style={{ color: 'red' }}>{eventName}</span> ?</p>
@@ -209,6 +209,26 @@ const Calender = () => {
                             right: "timeGridWeek,timeGridDay,listWeek"
                         }}
 
+                        views={{
+                            timeGridWeek: {
+                                type: 'timeGridWeek',
+                                buttonText: 'Semaine' // adjust to 3 only for timeGridWeek/timeGridDay
+                            },
+                            timeGridDay: {
+                                type: 'timeGridDay',
+                                buttonText: 'Jour' // adjust to 3 only for timeGridWeek/timeGridDay
+                            },
+                            listWeek: {
+                                type: 'listWeek',
+                                buttonText: 'Liste' // adjust to 3 only for timeGridWeek/timeGridDay
+                            },
+                           
+                          }}
+                       
+                          buttonText={{
+                            today: "Aujourd'hui" 
+                          }}
+                          
                         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
                         // ref={this.calendarComponentRef}
                         // weekends={this.state.calendarWeekends}
@@ -235,7 +255,7 @@ const Calender = () => {
 
                     <Modal centered show={showM1} onHide={handleCloseM1} animation={false}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Ajouter un rendez-vous</Modal.Title>
+                            <Modal.Title>Ajouter Rendez-vous</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             {message == 'Rendez-Vous a été ajouté avec succès' && <p style={{ textAlign: 'center', fontWeight: 'bold', color: 'green' }}> {message} </p>}
@@ -249,7 +269,7 @@ const Calender = () => {
                                         Annuler
                     </Button>
                                     <Button className='addBtnEvent' type="submit" variant="primary" >
-                                        Ajouter évenement
+                                        Ajouter rendez-vous
                     </Button>
                                 </Modal.Footer>
                             </form>
@@ -261,7 +281,7 @@ const Calender = () => {
 
                     <Modal centered show={showM2} onHide={handleCloseM2} animation={false}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Supprimer un rendez-vous</Modal.Title>
+                            <Modal.Title>Supprimer Rendez-vous</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <p style={{ fontSize: '18px', fontWeight: '500' }}>Voulez-vous vraiment supprimer le rendez-vous de <span style={{ color: 'red' }}>{eventName}</span> ?</p>

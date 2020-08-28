@@ -200,7 +200,7 @@ const Patient = () => {
 
                     <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}><CIcon style={{ fontSize: '25px', textAlign: 'center', marginTop: '-8px' }} name="cil-people" /> Les Patients </h1>
                     <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-                        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                     </form>
                     {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '5%', fontWeight: 'bold' }} >Loading...</p> :
                         <BootstrapTable rowStyle={rowStyle}
@@ -221,15 +221,15 @@ const Patient = () => {
 
                         <Modal centered show={showM2} onHide={handleCloseM2} animation={false}>
                             <Modal.Header closeButton>
-                                <Modal.Title>Supprimer un rendez-vous</Modal.Title>
+                                <Modal.Title>Envoyer fiche patient</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <p style={{ fontSize: '18px', fontWeight: '500' }}>Voulez-vous vraiment envoyer la fiche de <span style={{ color: 'red' }}> {sheet.name} </span>  au médecin ?</p>
                                 <Modal.Footer>
-                                    <Button className='annulerBtn' variant="secondary" onClick={handleCloseM2}>
+                                    <Button className='ouiBtn' variant="secondary" onClick={handleCloseM2}>
                                         Annuler
                     </Button>
-                                    <Button className='ouiBtn' onClick={handleClickConfirm} variant="primary" >
+                                    <Button className='annulerBtn' onClick={handleClickConfirm} variant="primary" >
                                         Oui
                          </Button>
                                 </Modal.Footer>
@@ -240,7 +240,7 @@ const Patient = () => {
 
                         <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}><CIcon style={{ fontSize: '25px', textAlign: 'center', marginTop: '-8px' }} name="cil-people" /> Les Patients </h1>
                         <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-                            <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                            <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input name="name" onChange={handleChange} type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                         </form>
                         {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '5%', fontWeight: 'bold' }} >Loading...</p> :
                             <BootstrapTable rowStyle={rowStyle}

@@ -1,11 +1,5 @@
 export default [
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Acceuil',
-    to: '/home',
-    icon: 'cil-user',
- 
-  },
+
 
   {
     _tag: 'CSidebarNavItem',

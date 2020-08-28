@@ -78,7 +78,7 @@ const Ordonnances = () => {
     <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Ordonnances Médicales </h1>
 
     <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" type='text' style={{ borderRadius: '5px' }} onChange={handleChange} placeholder="Nom et prénom" />
+        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input name="name" type='text' style={{ borderRadius: '5px' }} onChange={handleChange} placeholder="Nom et prénom" />
     </form>
 
     {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }} >Loading...</p> :
@@ -99,7 +99,7 @@ const Ordonnances = () => {
                                         <p key={patt._id} className="patientNameOrd"> {patt.name} </p>
                                     )
                                 })}
-                                <p className="dateSheet">Créer le {moment(ord.createdAt).format('L')}</p>
+                                <p className="dateSheet">Crée le {moment(ord.createdAt).format('L')}</p>
                             </a>
 
                         </div>
@@ -124,7 +124,7 @@ const Ordonnances = () => {
         <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Ordonnances Médicales </h1>
 
         <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-            <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input name="name" type='text' style={{ borderRadius: '5px' }} onChange={handleChange} placeholder="Nom et prénom" />
+            <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input name="name" type='text' style={{ borderRadius: '5px' }} onChange={handleChange} placeholder="Nom et prénom" />
         </form>
 
         {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }} >Loading...</p> :
@@ -145,7 +145,7 @@ const Ordonnances = () => {
                                             <p key={patt._id} className="patientNameOrd"> {patt.name} </p>
                                         )
                                     })}
-                                    <p className="dateSheet">Créer le {moment(ord.createdAt).format('L')}</p>
+                                    <p className="dateSheet">Crée le {moment(ord.createdAt).format('L')}</p>
                                 </a>
 
                             </div>

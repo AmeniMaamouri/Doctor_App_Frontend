@@ -65,16 +65,19 @@ const TheHeaderDropdown = () => {
           className="text-center"
         >
 
-          <strong>Settings</strong>
+          <strong>Réglages</strong>
         </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-user" className="mfe-2" />Profile
+        {tokenData.role === 'Secrétaire' ? null : <div>
+          <CDropdownItem href={`/profil/` + tokenData.id}>
+            <CIcon name="cil-user" className="mfe-2" />Profile
         </CDropdownItem>
-        <CDropdownItem>
-          <CIcon name="cil-settings" className="mfe-2" />
-          Settings
+          <CDropdownItem href={`/profil/5f467e88635729a14868bb20`}>
+            <CIcon name="cil-settings" className="mfe-2" />
+          Compte secrétaire
         </CDropdownItem>
-        <CDropdownItem divider />
+          <CDropdownItem divider />
+        </div>}
+
         <CDropdownItem onClick={handleClick}>
           <CIcon name="cil-lock-locked" className="mfe-2" />
           Se déconnecter

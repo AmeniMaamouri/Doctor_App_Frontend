@@ -24,7 +24,7 @@ const TheHeader = () => {
   const [tokenData, setTokenData] = useState('')
   const [notif, setNotif] = useState([])
   const [itemsCount, setItemsCount] = useState(0)
-  let socket = socket = io('http://localhost:4000')
+  let socket  = io('http://localhost:4000')
 
 
   const toggleSidebar = () => {

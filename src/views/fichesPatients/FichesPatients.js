@@ -71,7 +71,7 @@ const FichesPatients = () => {
                 <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Fiches Des Patients </h1>
 
                 <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-                    <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                    <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                 </form>
 
                 {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
@@ -89,7 +89,7 @@ const FichesPatients = () => {
                                         <a href={`/fiche-patient/` + patient[0]._id}>
                                             <img className='imgSheet' src={require('../../images/sheet.png')} />
                                             <p className="patientName">{patient[0].name}</p>
-                                            <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
+                                            <p className="dateSheet">Crée le {moment(sheet.createdAt).format('L')}</p>
                                         </a>
 
                                     </div>
@@ -112,7 +112,7 @@ const FichesPatients = () => {
                     <h1 style={{ fontSize: '25px', textAlign: 'center', marginBottom: '40px' }}> Les Fiches Des Patients </h1>
 
                     <form style={{ textAlign: 'right', marginBottom: '10px' }}>
-                        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filter :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
+                        <label style={{ fontWeight: 'bold', marginRight: '10px' }}>Filtrer :</label><input onChange={handleChange} name="name" type='text' style={{ borderRadius: '5px' }} placeholder="Nom et prénom" />
                     </form>
 
                     {loading === true ? <p style={{ textAlign: 'center', fontSize: '20px', marginTop: '7%', fontWeight: 'bold' }}>Loading...</p> :
@@ -130,7 +130,7 @@ const FichesPatients = () => {
                                             <a href={`/fiche-patient/` + patient[0]._id}>
                                                 <img className='imgSheet' src={require('../../images/sheet.png')} />
                                                 <p className="patientName">{patient[0].name}</p>
-                                                <p className="dateSheet">Créer le {moment(sheet.createdAt).format('L')}</p>
+                                                <p className="dateSheet">Crée le {moment(sheet.createdAt).format('L')}</p>
                                             </a>
 
                                         </div>

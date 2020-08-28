@@ -72,7 +72,7 @@ const TheHeaderDropdownMssg = ({ notif, itemsCount, setItemsCount, handleClick }
                   <small className="text-muted float-right mt-1">{moment(data.date).fromNow()}</small>
                 </div>
                 <div className="text-truncate font-weight-bold textMsg">
-                  <span className="fa fa-exclamation text-danger"></span> Vous envoyée une fiche client
+                  <span className="fa fa-exclamation text-danger"></span> Vous a envoyée une fiche client
               </div>
                 <div className="small text-muted text-truncate font-weight-bold">
                   Fiche de {data.patientName}
@@ -102,7 +102,7 @@ const TheHeaderDropdownMssg = ({ notif, itemsCount, setItemsCount, handleClick }
               <span className="fa fa-exclamation text-danger"></span> Bienvenue Au Plateforme
               </div>
             <div className="small text-muted text-truncate font-weight-bold">
-              Cette plateforme est crée par Ameni Maamouri
+              Cette plateforme a été crée par Ameni Maamouri 
               </div>
           </div>
         </CDropdownItem>
