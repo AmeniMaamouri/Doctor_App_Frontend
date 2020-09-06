@@ -13,7 +13,7 @@ class Ordonnance extends Component {
     componentDidMount() {
         const id = window.location.pathname.split('/')[2]
         axios.get(`http://localhost:4000/ordonnance/` + id).then(res => {
-            console.log(res.data)
+         
             this.setState({
                 ordonnance: res.data,
                 loading: false

@@ -21,7 +21,7 @@ const FichesPatients = () => {
 
     useEffect(() => {
         axios.get('http://localhost:4000/fiches-patients').then(res => {
-        console.log(res.data)
+       
             setPatients(res.data.patients)
             setFichePatients(res.data.fichePatient)
             setPatientWithSheetFilter(res.data.fichePatient)

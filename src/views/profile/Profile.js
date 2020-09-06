@@ -28,7 +28,7 @@ const Profile = () => {
         e.preventDefault()
         axios.post(`http://localhost:4000/profil/` + id, profilData).then(res => {
             setMessage(res.data.message)
-            console.log(res)
+            
             setTimeout(() => {
                 history.push('/patients')
             }, 1000);

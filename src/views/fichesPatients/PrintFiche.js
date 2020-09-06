@@ -33,7 +33,7 @@ const PrintFiche = () => {
     const handleClickConfirm = () => {
         axios.post('http://localhost:4000/:patients', { fichePatient: id, patientName: data.name }).then(res => {
 
-            console.log(res)
+          
 
         }).catch(err => {
             console.log(err)

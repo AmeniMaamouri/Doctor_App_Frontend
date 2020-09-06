@@ -182,7 +182,7 @@ const FichePatient = () => {
                                             setTimeout(() => {
                                                 setArrayData([newData, ...arrayData]);
                                                 axios.post(`http://localhost:4000/fiche-patient/` + id, newData).then(res => {
-                                                    console.log(res)
+                                                   
                                                 }).catch(err => {
                                                     console.log(err)
                                                 })
@@ -206,7 +206,7 @@ const FichePatient = () => {
                                                 }
 
                                                 axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
-                                                    console.log(res)
+                                                  
                                                 }).catch(err => {
                                                     console.log(err)
                                                 })
@@ -228,7 +228,7 @@ const FichePatient = () => {
                                                     _id: ficheId,
                                                 }
                                                 axios.put(`http://localhost:4000/fiche-patient/` + id, information).then(res => {
-                                                    console.log(res)
+                                                   
                                                 }).catch(err => {
                                                     console.log(err)
                                                 })

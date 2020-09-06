@@ -162,7 +162,7 @@ const Patient = () => {
     const handleClickConfirm = () => {
         axios.post('http://localhost:4000/:patients', { fichePatient: sheet._id, patientName: sheet.name }).then(res => {
 
-            console.log(res)
+            
 
         }).catch(err => {
             console.log(err)
@@ -252,7 +252,7 @@ const Patient = () => {
                                 cellEdit={cellEditFactory({
                                     mode: 'click', blurToSave: true, afterSaveCell: (oldValue, newValue, row, column) => {
                                         axios.put('http://localhost:4000/patients', row).then(res => {
-                                            console.log(res)
+                                          
                                         }).catch(err => {
                                             console.log(err)
                                         })

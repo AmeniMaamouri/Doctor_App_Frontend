@@ -30,7 +30,7 @@ const Calender = () => {
 
     useEffect(() => {
         axios.get('http://localhost:4000/calender').then(res => {
-            console.log(res.data)
+           
             setAppointment(res.data)
 
         }).catch(err => {
