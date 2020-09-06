@@ -69,7 +69,7 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
         {tokenData.role === 'Secrétaire' ? null : <div>
           <CDropdownItem href={`/profil/` + tokenData.id}>
-            <CIcon name="cil-user" className="mfe-2" />Profile
+            <CIcon name="cil-user" className="mfe-2" />Profil
         </CDropdownItem>
           <CDropdownItem href={`/profil/5f467e88635729a14868bb20`}>
             <CIcon name="cil-settings" className="mfe-2" />

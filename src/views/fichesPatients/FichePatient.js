@@ -59,6 +59,7 @@ const FichePatient = () => {
     const [sheetNumber, setSheetNumber] = useState()
     const [loading, setLoading] = useState(true)
     const [tokenData, setTokenData] = useState('')
+ 
 
 
     useEffect(() => {
@@ -85,6 +86,7 @@ const FichePatient = () => {
         })
     }, [])
 
+   
 
     return (
         <div>
@@ -108,6 +110,8 @@ const FichePatient = () => {
 
                         </div>
                     </div>
+
+                    
 
                     <div style={{ marginBottom: '40px' }}>
                         <MaterialTable

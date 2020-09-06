@@ -37,7 +37,7 @@ const Profile = () => {
 
     return (
         <div>
-            {id === '5f467e88635729a14868bb20' ? <h3 style={{ textAlign: 'center', marginBottom: '50px' }}>Changer le profile de votre secrétaire</h3> : <h3 style={{ textAlign: 'center', marginBottom: '50px' }}>Changer votre profile</h3>}
+            {id === '5f467e88635729a14868bb20' ? <h3 style={{ textAlign: 'center', marginBottom: '50px' }}>Changer le profil de votre secrétaire</h3> : <h3 style={{ textAlign: 'center', marginBottom: '50px' }}>Changer votre profil</h3>}
             <form className='col-7 mx-auto' onSubmit={handleSubmit}>
 
                 {message && <p style={{ textAlign: 'center', fontWeight: 'bold', color: 'green', marginBottom: '30px', fontSize: '18px' }}>{message}</p>}

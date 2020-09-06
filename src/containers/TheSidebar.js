@@ -26,17 +26,11 @@ const TheSidebar = () => {
       show={show}
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
-        />
+      <CSidebarBrand className="d-md-down-none" to="/" style={{textDecoration:'none'}}>
+       
+        <h5 className="c-sidebar-brand-full" style={{paddingTop:'8px', marginRight:'15px', textDecoration:'none'}} >3B Soft Solutions</h5>
+        <h5 className="c-sidebar-brand-minimized" height={35}>3B</h5>
+      
       </CSidebarBrand>
       <CSidebarNav>
 
